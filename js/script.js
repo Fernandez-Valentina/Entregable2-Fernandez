@@ -24,5 +24,33 @@ function mostrarClimaActual() {
     historialConsultas.push(`Clima en ${ciudad}: ${climaAleatorio}`);
     localStorage.setItem("historial", JSON.stringify(historialConsultas));
 }
-
 document.getElementById("buscarClima").addEventListener("click", mostrarClimaActual);
+
+// Sección Pronóstico del Clima
+function mostrarPronostico() {
+    let dias = document.getElementById("dias").value;
+    dias = parseInt(dias);
+
+    if (isNaN(dias) || dias < 1 || dias > 5) {
+        alert("Por favor, ingrese un número válido entre 1 y 5.");
+        return;
+    }
+
+    let pronostico = ["Soleado", "Nublado", "Lluvioso", "Tormentoso", "Nevado"];
+    let diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+    
+    let pronosticoResultado = document.getElementById("pronosticoResultado");
+    pronosticoResultado.innerHTML = "<h3>Pronóstico del Clima:</h3>";
+
+    let fechaActual = new Date();
+
+    for (let i = 0; i < dias; i++) {
+        let diaSemana = diasSemana[(fechaActual.getDay() + i) % 7];
+        let climaAleatorio = pronostico[Math.floor(Math.random() * pronostico.length)];
+
+        let parrafo = document.createElement("p");
+        parrafo.textContent = `${diaSemana}: ${climaAleatorio}`;
+        pronosticoResultado.appendChild(parrafo);
+    }
+}
+document.getElementById("verPronostico").addEventListener("click", mostrarPronostico);
