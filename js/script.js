@@ -54,3 +54,18 @@ function mostrarPronostico() {
     }
 }
 document.getElementById("verPronostico").addEventListener("click", mostrarPronostico);
+
+// Sección Historial de Consultas
+function mostrarHistorial() {
+const historialConsultas = JSON.parse(localStorage.getItem("historial")) || [];
+let historialLista = document.getElementById("historialLista");
+
+historialLista.innerHTML = "";
+
+historialConsultas.forEach(function(elemento) {
+    let li = document.createElement("li");
+    li.textContent = elemento;
+    historialLista.appendChild(li);
+});
+}
+document.getElementById("verHistorial").addEventListener("click", mostrarHistorial);
