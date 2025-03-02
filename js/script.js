@@ -55,17 +55,33 @@ function mostrarPronostico() {
 }
 document.getElementById("verPronostico").addEventListener("click", mostrarPronostico);
 
+// Sección Conversor de Temperatura
+function convertirTemperatura() {
+    let celsius = parseFloat(document.getElementById("temperaturaCelsius").value);
+
+    if (isNaN(celsius)) {
+        alert("Por favor, ingrese un número válido.");
+        return;
+    }
+
+    let fahrenheit = (celsius * 9/5) + 32;
+    let resultado = document.getElementById("conversionResultado");
+    resultado.innerHTML = `<p>${celsius}°C es igual a ${fahrenheit.toFixed(2)}°F</p>`;
+}
+
+document.getElementById("convertirTemperatura").addEventListener("click", convertirTemperatura);
+
 // Sección Historial de Consultas
 function mostrarHistorial() {
-const historialConsultas = JSON.parse(localStorage.getItem("historial")) || [];
-let historialLista = document.getElementById("historialLista");
-
-historialLista.innerHTML = "";
-
-historialConsultas.forEach(function(elemento) {
-    let li = document.createElement("li");
-    li.textContent = elemento;
-    historialLista.appendChild(li);
-});
-}
-document.getElementById("verHistorial").addEventListener("click", mostrarHistorial);
+    const historialConsultas = JSON.parse(localStorage.getItem("historial")) || [];
+    let historialLista = document.getElementById("historialLista");
+    
+    historialLista.innerHTML = "";
+    
+    historialConsultas.forEach(function(elemento) {
+        let li = document.createElement("li");
+        li.textContent = elemento;
+        historialLista.appendChild(li);
+    });
+    }
+    document.getElementById("verHistorial").addEventListener("click", mostrarHistorial);
