@@ -4,23 +4,28 @@ const historialConsultas = JSON.parse(localStorage.getItem("historial")) || [];
 function mostrarClimaActual() {
     let ciudad = document.getElementById("ciudad").value.trim();
     let errorCiudad = document.getElementById("errorCiudad");
+    let resultado = document.getElementById("resultado");
 
+    // Si la entrada no es válida, muestra el error y borra el resultado anterior
     if (ciudad === "" || /\d/.test(ciudad)) {
         errorCiudad.textContent = "Por favor, ingrese una ciudad válida.";
+        resultado.innerHTML = ""; // Borra el resultado anterior
         return;
     }
+
+    // Si la entrada es válida, borra el mensaje de error
     errorCiudad.textContent = ""; 
 
     let climas = ["Soleado", "Nublado", "Lluvioso", "Tormentoso", "Nevado"];
     let climaAleatorio = climas[Math.floor(Math.random() * climas.length)];
 
-    let resultado = document.getElementById("resultado");
     resultado.innerHTML = `<p>El clima en <strong>${ciudad}</strong> es <strong>${climaAleatorio}</strong></p>`;
 
     // Guardar en historial
     historialConsultas.push(`Clima en ${ciudad}: ${climaAleatorio}`);
     localStorage.setItem("historial", JSON.stringify(historialConsultas));
 }
+
 document.getElementById("buscarClima").addEventListener("click", mostrarClimaActual);
 
 // Sección Pronóstico del Clima
@@ -49,7 +54,7 @@ function mostrarPronostico() {
         return `<p>${diaSemana}: ${climaAleatorio}</p>`;
     }).join("");
 
-    pronosticoResultado.innerHTML = `<h3>Pronóstico del Clima:</h3>${pronosticoTexto}`;
+    pronosticoResultado.innerHTML = `<h3>Pronóstico para los próximos días:</h3>${pronosticoTexto}`;
 }
 document.getElementById("verPronostico").addEventListener("click", mostrarPronostico);
 
