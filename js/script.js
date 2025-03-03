@@ -9,7 +9,8 @@ function mostrarClimaActual() {
     // Si la entrada no es válida, muestra el error y borra el resultado anterior
     if (ciudad === "" || /\d/.test(ciudad)) {
         errorCiudad.textContent = "Por favor, ingrese una ciudad válida.";
-        resultado.innerHTML = ""; // Borra el resultado anterior
+        resultado.innerHTML = "";
+        document.getElementById("ciudad").value = "";
         return;
     }
 
@@ -19,7 +20,8 @@ function mostrarClimaActual() {
     let climas = ["Soleado", "Nublado", "Lluvioso", "Tormentoso", "Nevado"];
     let climaAleatorio = climas[Math.floor(Math.random() * climas.length)];
 
-    resultado.innerHTML = `<p>El clima en <strong>${ciudad}</strong> es <strong>${climaAleatorio}</strong></p>`;
+    resultado.innerHTML = `<p>El clima en ${ciudad} es ${climaAleatorio}</p>`;
+    document.getElementById("ciudad").value = "";
 
     // Guardar en historial
     historialConsultas.push(`Clima en ${ciudad}: ${climaAleatorio}`);
