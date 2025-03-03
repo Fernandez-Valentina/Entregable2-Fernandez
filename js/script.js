@@ -14,7 +14,6 @@ function mostrarClimaActual() {
         return;
     }
 
-    // Si la entrada es válida, borra el mensaje de error
     errorCiudad.textContent = ""; 
 
     let climas = ["Soleado", "Nublado", "Lluvioso", "Tormentoso", "Nevado"];
@@ -36,8 +35,10 @@ function mostrarPronostico() {
     let errorPronostico = document.getElementById("errorPronostico");
     let pronosticoResultado = document.getElementById("pronosticoResultado");
 
+    //Limpia resultado anterior
     pronosticoResultado.innerHTML = "";
 
+    //Verifica si el número de días es válido
     if (isNaN(dias) || dias < 1 || dias > 5) {
         errorPronostico.textContent = "Por favor, ingrese un número válido entre 1 y 5.";
         return;
@@ -47,9 +48,11 @@ function mostrarPronostico() {
 
     let pronostico = ["Soleado", "Nublado", "Lluvioso", "Tormentoso", "Nevado"];
     let diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
-    
+
+    // Obtiene fecha actual
     let fechaActual = new Date();
 
+    //Genera el pronóstico según el número ingresado
     let pronosticoTexto = Array.from({ length: dias }, (_, i) => {
         let diaSemana = diasSemana[(fechaActual.getDay() + i) % 7];
         let climaAleatorio = pronostico[Math.floor(Math.random() * pronostico.length)];
@@ -63,29 +66,36 @@ document.getElementById("verPronostico").addEventListener("click", mostrarPronos
 
 // Sección Conversor de Temperatura
 function convertirTemperatura() {
-    let celsius = parseFloat(document.getElementById("temperaturaCelsius").value);
+    let celsiusInput = document.getElementById("temperaturaCelsius");
+    let celsius = parseFloat(celsiusInput.value);
     let errorConversion = document.getElementById("errorConversion");
     let resultado = document.getElementById("conversionResultado");
+
+    // Limpia mensajes anteriores
+    errorConversion.textContent = "";
+    resultado.innerHTML = "";
 
     if (isNaN(celsius)) {
         errorConversion.textContent = "Por favor, ingrese un número válido.";
         return;
     }
 
-    errorConversion.textContent = "";
-
     let fahrenheit = (celsius * 9/5) + 32;
     resultado.innerHTML = `<p>${celsius}°C es igual a ${fahrenheit.toFixed(2)}°F</p>`;
+
+    // Vacía el input después de la conversión
+    celsiusInput.value = "";
 }
+
 document.getElementById("convertirTemperatura").addEventListener("click", convertirTemperatura);
+
 
 // Sección Historial de Consultas
 function mostrarHistorial() {
-    const historialConsultas = JSON.parse(localStorage.getItem("historial")) || [];
-    let historialLista = document.getElementById("historialLista");
-
+    // Limpia la lista del historial antes de actualizarla
     historialLista.innerHTML = "";
 
+    // Verifica si el historial está vacío
     if (historialConsultas.length === 0) {
         let li = document.createElement("li");
         li.textContent = "Historial vacío";
@@ -93,6 +103,7 @@ function mostrarHistorial() {
         return;
     }
 
+    // Recorre el historial guardado y agrega cada consulta a la lista
     historialConsultas.forEach(function(elemento) {
         let li = document.createElement("li");
         li.textContent = elemento;
@@ -100,13 +111,13 @@ function mostrarHistorial() {
     });
 }
 
-// Función para borrar el historial y actualizar la vista
+// Borra el historial y actualizar la vista
 function borrarHistorial() {
     localStorage.removeItem("historial");
     historialConsultas.length = 0;
-    mostrarHistorial();
+    document.getElementById("historialLista").innerHTML = "<li>Historial vacío</li>";
 }
 
-// Event Listeners
 document.getElementById("borrarHistorial").addEventListener("click", borrarHistorial);
 document.getElementById("verHistorial").addEventListener("click", mostrarHistorial);
+
