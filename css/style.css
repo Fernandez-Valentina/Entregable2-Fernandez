@@ -3,12 +3,16 @@
     --color-secundario: #f5efeb;
     --color-terciario: #567c8d;
     --color-cuaternario: #c8d9e6;
+    --color-botones: #f0d29e;
+    --color-botones-hover: #e8b86f;
 }
+
 body {
     background-color: var(--color-primario);
     font-family: 'Quicksand', sans-serif;
     color: var(--color-secundario);
-    padding: 0rem;
+    padding: 0;
+    margin: 0;
 }
 
 h1 {
@@ -16,74 +20,83 @@ h1 {
     font-size: 3rem;
     font-weight: bolder;
     padding: 1rem;
+    padding-top: 0%;
 }
+
 h1::after {
     content: " ⛅";
     font-size: 1.3em;
 }
 
+/* Contenedor principal */
 .container {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Dos columnas */
-    grid-template-rows: auto auto; /* Dos filas con altura automática */
-    gap: 1.5rem; /* Espacio entre los elementos */
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
     max-width: 900px;
-    margin: 0 auto;
-    align-items: start; /* Asegura que los elementos comiencen desde arriba */
+    margin: 1rem auto;
+    padding: 0.1rem;
+    align-items: start;
 }
 
-.clima-actual {
-    grid-column: 1;
-    grid-row: 1;
-}
-
-.pronostico-clima {
-    grid-column: 1;
-    grid-row: 2;
-}
-
-.conversor-temperatura {
-    grid-column: 2;
-    grid-row: 1;
-}
-
-.historial-consultas {
-    grid-column: 2;
-    grid-row: 2;
-}
-
-/* Ajuste del tamaño de los bloques */
+/* Secciones */
 .clima-actual, .pronostico-clima, .conversor-temperatura, .historial-consultas {
     background-color: var(--color-terciario);
     padding: 1.5rem;
     border-radius: 10px;
-    min-height: 150px; /* Asegura que tengan altura mínima similar */
+    min-height: 180px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out;
 }
 
+.clima-actual:hover, .pronostico-clima:hover, .conversor-temperatura:hover, .historial-consultas:hover {
+    transform: scale(1.02);
+}
+
+/* Inputs */
 input {
-    border-radius: 0.4rem;
-    margin-bottom: 0.5rem;
-    padding: 0.4rem;
-}
-button {
-    border-radius: 0.4rem;
-    padding: 0.4rem;
-    background-color: var(--color-secundario)
+    border-radius: 6px;
+    margin-bottom: 0.7rem;
+    padding: 0.6rem;
+    border: 1px solid var(--color-cuaternario);
+    max-width: 100%;
+    text-align: center;
+    font-size: 1rem;
 }
 
-/* Para hacer responsivo */
+/* Botones */
+button {
+    border-radius: 6px;
+    padding: 0.6rem;
+    background-color: var(--color-botones);
+    color: #333;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: var(--color-botones-hover);
+}
+
+/* Responsivo */
 @media (max-width: 768px) {
     .container {
-        grid-template-columns: 1fr; /* Pasa a una sola columna */
-        grid-template-rows: auto;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 0.5rem;
     }
 
     .clima-actual, .pronostico-clima, .conversor-temperatura, .historial-consultas {
-        grid-column: auto;
-        grid-row: auto;
+        min-height: auto;
+    }
+
+    input {
+        font-size: 0.9rem;
     }
 }
