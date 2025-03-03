@@ -3,16 +3,13 @@ const historialConsultas = JSON.parse(localStorage.getItem("historial")) || [];
 // Sección Clima Actual
 function mostrarClimaActual() {
     let ciudad = document.getElementById("ciudad").value.trim();
+    let errorCiudad = document.getElementById("errorCiudad");
 
-    if (ciudad === "") {
-        alert("Por favor, ingrese una ciudad válida.");
+    if (ciudad === "" || /\d/.test(ciudad)) {
+        errorCiudad.textContent = "Por favor, ingrese una ciudad válida.";
         return;
     }
-
-    if (/\d/.test(ciudad)) {
-        alert("Por favor, ingrese una ciudad válida.");
-        return;
-    }
+    errorCiudad.textContent = ""; 
 
     let climas = ["Soleado", "Nublado", "Lluvioso", "Tormentoso", "Nevado"];
     let climaAleatorio = climas[Math.floor(Math.random() * climas.length)];
@@ -68,7 +65,6 @@ function convertirTemperatura() {
     let resultado = document.getElementById("conversionResultado");
     resultado.innerHTML = `<p>${celsius}°C es igual a ${fahrenheit.toFixed(2)}°F</p>`;
 }
-
 document.getElementById("convertirTemperatura").addEventListener("click", convertirTemperatura);
 
 // Sección Historial de Consultas
@@ -84,4 +80,9 @@ function mostrarHistorial() {
         historialLista.appendChild(li);
     });
     }
-    document.getElementById("verHistorial").addEventListener("click", mostrarHistorial);
+function borrarHistorial() {
+    localStorage.removeItem("historial");
+    document.getElementById("historialLista").innerHTML = "<li>Historial vacío</li>";
+}
+document.getElementById("borrarHistorial").addEventListener("click", borrarHistorial);
+document.getElementById("verHistorial").addEventListener("click", mostrarHistorial);
