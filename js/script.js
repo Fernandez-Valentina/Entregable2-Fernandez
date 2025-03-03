@@ -56,14 +56,17 @@ document.getElementById("verPronostico").addEventListener("click", mostrarPronos
 // Sección Conversor de Temperatura
 function convertirTemperatura() {
     let celsius = parseFloat(document.getElementById("temperaturaCelsius").value);
+    let errorConversion = document.getElementById("errorConversion");
+    let resultado = document.getElementById("conversionResultado");
 
     if (isNaN(celsius)) {
-        alert("Por favor, ingrese un número válido.");
+        errorConversion.textContent = "Por favor, ingrese un número válido.";
         return;
     }
 
+    errorConversion.textContent = "";
+
     let fahrenheit = (celsius * 9/5) + 32;
-    let resultado = document.getElementById("conversionResultado");
     resultado.innerHTML = `<p>${celsius}°C es igual a ${fahrenheit.toFixed(2)}°F</p>`;
 }
 document.getElementById("convertirTemperatura").addEventListener("click", convertirTemperatura);
