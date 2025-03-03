@@ -83,18 +83,30 @@ document.getElementById("convertirTemperatura").addEventListener("click", conver
 function mostrarHistorial() {
     const historialConsultas = JSON.parse(localStorage.getItem("historial")) || [];
     let historialLista = document.getElementById("historialLista");
-    
+
     historialLista.innerHTML = "";
-    
+
+    if (historialConsultas.length === 0) {
+        let li = document.createElement("li");
+        li.textContent = "Historial vacío";
+        historialLista.appendChild(li);
+        return;
+    }
+
     historialConsultas.forEach(function(elemento) {
         let li = document.createElement("li");
         li.textContent = elemento;
         historialLista.appendChild(li);
     });
-    }
+}
+
+// Función para borrar el historial y actualizar la vista
 function borrarHistorial() {
     localStorage.removeItem("historial");
-    document.getElementById("historialLista").innerHTML = "<li>Historial vacío</li>";
+    historialConsultas.length = 0;
+    mostrarHistorial();
 }
+
+// Event Listeners
 document.getElementById("borrarHistorial").addEventListener("click", borrarHistorial);
 document.getElementById("verHistorial").addEventListener("click", mostrarHistorial);
