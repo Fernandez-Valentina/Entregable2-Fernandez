@@ -57,6 +57,7 @@ function mostrarPronostico() {
     }).join("");
 
     pronosticoResultado.innerHTML = `<h3>Pronóstico para los próximos días:</h3>${pronosticoTexto}`;
+    document.getElementById("dias").value = "";
 }
 document.getElementById("verPronostico").addEventListener("click", mostrarPronostico);
 
