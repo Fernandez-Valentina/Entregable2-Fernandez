@@ -60,7 +60,7 @@ function mostrarPronostico() {
         return `<p>${diaSemana}: ${climaAleatorio}</p>`;
     }).join("");
 
-    pronosticoResultado.innerHTML = `<h3>Pronóstico para los próximos días:</h3>${pronosticoTexto}`;
+    pronosticoResultado.innerHTML = `${pronosticoTexto}`;
     document.getElementById("dias").value = "";
 }
 document.getElementById("verPronostico").addEventListener("click", mostrarPronostico);
