@@ -16,31 +16,31 @@
     <!--Resultados de Clima Actual-->
     <div id="resultado"></div>
 
-    <!--Sección Pronóstico del Clima-->
+   <!-- Sección Pronóstico del Clima -->
     <div>
         <h2>Pronóstico de los Próximos Días</h2>
         <input type="number" id="dias" placeholder="Ingrese días (1-5)" min="1" max="5">
         <button id="verPronostico">Ver Pronóstico</button>
+        <p id="errorPronostico"></p>
     </div>
-    <!-- Resultados Pronóstico del Clima-->
+   <!-- Resultados Pronóstico del Clima -->
     <div id="pronosticoResultado"></div>
 
-     <!-- Sección Conversor de Temperatura -->
+   <!-- Sección Conversor de Temperatura -->
     <div>
         <h2>Conversor de Temperatura</h2>
         <input type="number" id="temperaturaCelsius" placeholder="Ingrese temperatura en °C">
         <button id="convertirTemperatura">Convertir a Fahrenheit</button>
     </div>
-    <!-- Resultado Conversión -->
+   <!-- Resultado Conversión -->
     <div id="conversionResultado"></div>
 
-    <!-- Sección Historial de Consultas-->
+   <!-- Sección Historial de Consultas-->
     <div>
         <h2>Historial de Consultas</h2>
         <button id="verHistorial">Ver Historial</button>
         <ul id="historialLista"></ul>
     </div>
-
     <button id="borrarHistorial">Borrar Historial</button>
 
     <script src="js/script.js"></script>

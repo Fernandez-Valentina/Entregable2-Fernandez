@@ -25,30 +25,31 @@ document.getElementById("buscarClima").addEventListener("click", mostrarClimaAct
 
 // Sección Pronóstico del Clima
 function mostrarPronostico() {
-    let dias = document.getElementById("dias").value;
-    dias = parseInt(dias);
+    let dias = parseInt(document.getElementById("dias").value);
+    let errorPronostico = document.getElementById("errorPronostico");
+    let pronosticoResultado = document.getElementById("pronosticoResultado");
+
+    pronosticoResultado.innerHTML = "";
 
     if (isNaN(dias) || dias < 1 || dias > 5) {
-        alert("Por favor, ingrese un número válido entre 1 y 5.");
+        errorPronostico.textContent = "Por favor, ingrese un número válido entre 1 y 5.";
         return;
     }
+
+    errorPronostico.textContent = "";
 
     let pronostico = ["Soleado", "Nublado", "Lluvioso", "Tormentoso", "Nevado"];
     let diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
     
-    let pronosticoResultado = document.getElementById("pronosticoResultado");
-    pronosticoResultado.innerHTML = "<h3>Pronóstico del Clima:</h3>";
-
     let fechaActual = new Date();
 
-    for (let i = 0; i < dias; i++) {
+    let pronosticoTexto = Array.from({ length: dias }, (_, i) => {
         let diaSemana = diasSemana[(fechaActual.getDay() + i) % 7];
         let climaAleatorio = pronostico[Math.floor(Math.random() * pronostico.length)];
+        return `<p>${diaSemana}: ${climaAleatorio}</p>`;
+    }).join("");
 
-        let parrafo = document.createElement("p");
-        parrafo.textContent = `${diaSemana}: ${climaAleatorio}`;
-        pronosticoResultado.appendChild(parrafo);
-    }
+    pronosticoResultado.innerHTML = `<h3>Pronóstico del Clima:</h3>${pronosticoTexto}`;
 }
 document.getElementById("verPronostico").addEventListener("click", mostrarPronostico);
 
