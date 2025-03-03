@@ -25,6 +25,7 @@ function mostrarClimaActual() {
     // Guardar en historial
     historialConsultas.push(`Clima en ${ciudad}: ${climaAleatorio}`);
     localStorage.setItem("historial", JSON.stringify(historialConsultas));
+    mostrarHistorial();
 }
 
 document.getElementById("buscarClima").addEventListener("click", mostrarClimaActual);
@@ -92,7 +93,9 @@ document.getElementById("convertirTemperatura").addEventListener("click", conver
 
 // Sección Historial de Consultas
 function mostrarHistorial() {
-    // Limpia la lista del historial antes de actualizarla
+    let historialLista = document.getElementById("historialLista");
+    
+    if (!historialLista) return;
     historialLista.innerHTML = "";
 
     // Verifica si el historial está vacío
@@ -115,9 +118,9 @@ function mostrarHistorial() {
 function borrarHistorial() {
     localStorage.removeItem("historial");
     historialConsultas.length = 0;
-    document.getElementById("historialLista").innerHTML = "<li>Historial vacío</li>";
+    mostrarHistorial();
 }
 
 document.getElementById("borrarHistorial").addEventListener("click", borrarHistorial);
-document.getElementById("verHistorial").addEventListener("click", mostrarHistorial);
+document.addEventListener("DOMContentLoaded", mostrarHistorial);
 
